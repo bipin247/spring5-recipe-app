@@ -1,4 +1,4 @@
-package domain;
+package guru.springframework.domain;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class Category {
     private Long id;
     private String categoryName;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
 
     public Long getId() {

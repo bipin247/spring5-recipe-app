@@ -1,6 +1,4 @@
-package domain;
-
-import javax.persistence.Entity;
+package guru.springframework.domain;
 
 public enum Difficulty {
     HARD, EASY, MODERATE, GENUIS

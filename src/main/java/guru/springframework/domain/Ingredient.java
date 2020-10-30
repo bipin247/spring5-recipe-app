@@ -1,6 +1,4 @@
-package domain;
-
-import org.hibernate.annotations.Fetch;
+package guru.springframework.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
