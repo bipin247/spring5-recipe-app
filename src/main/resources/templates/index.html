@@ -4,7 +4,25 @@
     <meta charset="UTF-8"/>
     <title>Recipe Home</title>
 </head>
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Ingredient"*/-->
+
 <body>
 <h1>My Recipes!</h1>
+    <table>
+        <th><td>Recipe ID</td>
+            <td>Description</td>
+            <td>Ingredients</td>
+        </th>
+        <tr th:each="recipe: ${recipes}">These are all the recipes
+            <td th:text="${recipe.id}">description</td>
+            <td th:text="${recipe.description}">description</td>
+            <td><table><tr th:each="ingredient: ${recipe.ingredients}">
+                <td th:text="${ingredient.description}">description</td>
+                <td th:text="${ingredient.amount}">description</td>
+                <td th:text="${ingredient.unitOfMeasure.uom}">description</td>
+            </tr></table></td>
+        </tr>
+    </table>
 </body>
 </html>
