@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class Recipe {
     private Difficulty difficulty;
 
     @ManyToMany
-    @JoinTable (name = "recipe_category",
+    @JoinTable (  name = "recipe_category",
             joinColumns =  @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
 
@@ -108,6 +109,7 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+        this.notes.setRecipe(this);
     }
 
     public String getDescription() {
@@ -118,13 +120,14 @@ public class Recipe {
         this.description = description;
     }
 
-
     public Set<Ingredient> getIngredients() {
-        return ingredients;
+        return this.ingredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredient) {
-        this.ingredients = ingredients;
+    public Recipe addIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
     }
 
     public Difficulty getDifficulty() {
@@ -143,9 +146,4 @@ public class Recipe {
         this.categories = categories;
     }
 
-    public Recipe addIngredient(Ingredient addIngredient){
-        addIngredient.setRecipe(this);
-            this.ingredients.add(addIngredient);
-        return this;
-    }
 }
