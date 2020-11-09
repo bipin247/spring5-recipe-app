@@ -7,22 +7,25 @@ import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import guru.springframework.services.RecipeService;
-import guru.springframework.services.RecipeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 public class IndexControllerTest {
     IndexController indexController;
@@ -38,9 +41,28 @@ public class IndexControllerTest {
     Model model;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         indexController = new IndexController(categoryRepository,unitOfMeasureRepository,recipeService);
+
+        Category cat = new Category();
+        cat.setCategoryName("Italian");
+        cat.setId(2L);
+
+        UnitOfMeasure uom = new UnitOfMeasure();
+        uom.setUom("Cup");
+        uom.setId(5L);
+
+        when(categoryRepository.findByCategoryName("Italian")).thenReturn(Optional.of(cat));
+        when(unitOfMeasureRepository.findByUom("Cup")).thenReturn(Optional.of(uom));
+
+    }
+
+    @Test
+    public void mvcTest() throws Exception {
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(indexController).build();
+
+        mvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"));
     }
 
     @Test
@@ -56,17 +78,6 @@ public class IndexControllerTest {
         when(recipeService.getAllRecipes()).thenReturn(recipesData);
 
         ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
-
-        Category cat = new Category();
-        cat.setCategoryName("Italian");
-        cat.setId(2L);
-
-        UnitOfMeasure uom = new UnitOfMeasure();
-        uom.setUom("Cup");
-        uom.setId(5L);
-
-        when(categoryRepository.findByCategoryName("Italian")).thenReturn(Optional.of(cat));
-        when(unitOfMeasureRepository.findByUom("Cup")).thenReturn(Optional.of(uom));
 
         String index = indexController.getIndexPage(model);
 
