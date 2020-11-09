@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import guru.springframework.domain.Category;
 import guru.springframework.domain.Notes;
+import guru.springframework.domain.Recipe;
 import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Set;
 import java.util.Optional;
 
 /**
@@ -39,7 +41,8 @@ public class IndexController {
         System.out.println("category id :" + categoryObject.get().getId());
         System.out.println("uom id :" + uomObject.get().getId());
 
-        model.addAttribute("recipes",this.recipeService.getAllRecipes());
+        Set<Recipe> recipes = this.recipeService.getAllRecipes();
+        model.addAttribute("recipes",recipes);
         return "index";
     }
 }
