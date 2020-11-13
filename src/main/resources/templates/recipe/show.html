@@ -46,7 +46,7 @@
                                 <h5 >Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.prepTime}">30 min</p>
+                                <p th:text="${recipe.prepTime} + min">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulty:</h5>
@@ -92,10 +92,10 @@
                     <div class="panel-body"  th:if="${not #lists.isEmpty(recipe.ingredients)}">
                         <div class="row">
                             <div class="col-md-12">
-                                <ul th:each="ingredient : ${recipe.ingredients}">
+                                <ul>
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
-                                    <li th:text="${ingredient.getAmount() + ' '  + ingredient.getUnitOfMeasure().uom  + ' ' + ingredient.getDescription()}" >1 Cup of milk</li>
+                                    <li  th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.getAmount() + ' - '  + ingredient.getUnitOfMeasure().uom  + ' : ' + ingredient.getDescription()}" >1 Cup of milk</li>
                                 </ul>
                             </div>
                         </div>
