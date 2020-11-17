@@ -36,7 +36,7 @@ public class IndexController {
     public String getIndexPage(Model model){
         log.debug("In IndexController!!");
         Optional<Category> categoryObject = categoryRepository.findByCategoryName("Italian");
-        Optional<UnitOfMeasure> uomObject = unitOfMeasureRepository.findByUom("Cup");
+        Optional<UnitOfMeasure> uomObject = unitOfMeasureRepository.findByDescription("Cup");
 
         System.out.println("category id :" + categoryObject.get().getId());
         System.out.println("uom id :" + uomObject.get().getId());

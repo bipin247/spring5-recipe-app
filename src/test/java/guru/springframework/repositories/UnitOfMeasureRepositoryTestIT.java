@@ -27,13 +27,13 @@ public class UnitOfMeasureRepositoryTestIT {
     public void findByUom() {
 
         assertEquals("Cup",
-              unitOfMeasureRepository.findByUom("Cup").get().getUom());
+              unitOfMeasureRepository.findByDescription("Cup").get().getDescription());
     }
 
     @Test
     public void findByUomTeaspoon() {
 
         assertEquals("Teaspoon",
-                unitOfMeasureRepository.findByUom("Teaspoon").get().getUom());
+                unitOfMeasureRepository.findByDescription("Teaspoon").get().getDescription());
     }
 }

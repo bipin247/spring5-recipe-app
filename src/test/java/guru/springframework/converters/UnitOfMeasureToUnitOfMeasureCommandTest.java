@@ -37,7 +37,7 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
         //given
         UnitOfMeasure uom = new UnitOfMeasure();
         uom.setId(LONG_VALUE);
-        uom.setUom(DESCRIPTION);
+        uom.setDescription(DESCRIPTION);
         //when
         UnitOfMeasureCommand uomc = converter.convert(uom);
 

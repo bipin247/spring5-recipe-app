@@ -50,11 +50,11 @@ public class IndexControllerTest {
         cat.setId(2L);
 
         UnitOfMeasure uom = new UnitOfMeasure();
-        uom.setUom("Cup");
+        uom.setDescription("Cup");
         uom.setId(5L);
 
         when(categoryRepository.findByCategoryName("Italian")).thenReturn(Optional.of(cat));
-        when(unitOfMeasureRepository.findByUom("Cup")).thenReturn(Optional.of(uom));
+        when(unitOfMeasureRepository.findByDescription("Cup")).thenReturn(Optional.of(uom));
 
     }
 
