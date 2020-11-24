@@ -104,6 +104,7 @@ public class IngredientServiceImpl implements IngredientService {
                     .findFirst();
 
             //check by description
+            Long ingredientId;
             if(!savedIngredientOptional.isPresent()){
                 //not totally safe... But best guess
                 savedIngredientOptional = savedRecipe.getIngredients().stream()
@@ -111,11 +112,14 @@ public class IngredientServiceImpl implements IngredientService {
                         .filter(recipeIngredients -> recipeIngredients.getAmount().equals(command.getAmount()))
                         .filter(recipeIngredients -> recipeIngredients.getUnitOfMeasure().getId().equals(command.getUnitOfMeasure().getId()))
                         .findFirst();
+                ingredientId = savedIngredientOptional.get().getId();
+            } else {
+                ingredientId = command.getId();
             }
 
             //to do check for fail
             return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
-                    .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
+                    .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientId))
                     .findFirst()
                     .get());
         }

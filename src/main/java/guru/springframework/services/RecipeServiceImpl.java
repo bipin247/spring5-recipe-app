@@ -56,7 +56,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional
     @Override
     public RecipeCommand findCommandById(Long anyLong) {
-        log.debug("update RecipeId:" + anyLong);
+        log.debug(">>>>>>>>>>>>>>>>>>>>update  RecipeId:" + anyLong);
         return recipeToRecipeCommand.convert(getRecipeById(anyLong));
     }
 
